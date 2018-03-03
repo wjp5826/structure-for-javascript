@@ -32,6 +32,3 @@ function Stack() {
 		return items.length;
 	}
 }
-var stack = new Stack();
-stack.push('c')
-console.log('hello', stack.peek() )
