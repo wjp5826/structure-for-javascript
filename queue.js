@@ -25,3 +25,32 @@ function Queue(argument) {
 		return items.length;
 	}
 }
+// 优先级队列
+function PriorityQueue(){
+	let items = [];
+	// 用对象来展示队列的元素
+	function QueueElement(element, priority){
+		this.element = element;
+		this.priority = priority;
+	}
+	this.enqueue = function(ele, priority){
+		let queueElement = new QueueElement(ele, priority);
+		let added = false;
+		for (let i = 0,len = items.length;i < len;i++) {
+			if (queueElement.priority < items[i].priority){
+				items.splice(i, 0, queueElement);
+				added = true;
+				break;
+			}
+		}
+		if (!added) {
+			items.push(queueElement);
+		}
+	}
+	// 其他的方法同上	
+	this.print = function(){
+		for (var i = 0,len = items.length;i < len;i++) {
+			console.log('ele' + items[i].element + ', priority: ' + items[i].priority)
+		}
+	}
+}
