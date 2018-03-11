@@ -17,7 +17,7 @@ function linkedList(){
 	}
 	let length = 0;
 	let head = null;
-	// 添加新元素,考虑 head是否为空
+	// 向链表尾部添加新元素,考虑 head是否为空
 	this.append = function(element){
 		let node = new Node(element),
 			current;
@@ -60,15 +60,65 @@ function linkedList(){
 			return true;
 		}
 	},
-	// 输出链表
-	this.toString = function(){
-		let current = head;
+	// 接受一个元素的值，返回它第一次出现的位置
+	this.indexOf = function(element){
+		let current = head,
+			index = 0;
+
 		while(current){
-			console.log(current.element);
+			if (element === current.element){
+				return index;
+			}
+			index++;
 			current = current.next;
 		}
+		return -1;
 	},
+	// 根据元素删除链表的一项
+	this.remove = function(element){
+		const index = this.indexOf(element);
+		return this.removeAt(index);
+	},
+	// 删除指定位置的元素
+	this.removeAt = function(position){
+		if (position < 0 || position > length){
+			return;
+		}
+		let index = 0,
+			previous,
+			current = head;
+		if (position === 0){
+			if (current) {
+				head = current.next;
+			} else {
+				return null;
+			}
+		} else {
+			while(index++ < position){
+				previous = current;
+				current = current.next;
+			}
+			previous.next = current.next;
+		}
+		length--;
+		return current.element;		
+	},
+	// 输出链表
+	this.toString = function(){
+		let current = head,
+			res = []; // 结果
+		while(current){
+			res.push(current.element);
+			current = current.next;
+		}
+		return res;
+	},
+	// 返回链表的长度
 	this.length = function(){
 		return length;
+	},
+	// 检查链表是否为空
+	this.isEmpty = function(){
+		return length === 0;
 	}
 }
